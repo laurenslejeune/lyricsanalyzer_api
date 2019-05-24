@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Documentation</title>
+    <meta name="description" content="API documentation">
+    <meta name="author" content="Laurens Le Jeune">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  </head>
+  <body class="container-fluid" id="container" style="width: 80%">
+    <div>
+        <h1>Lyrics analyzer API documentation</h1>
+        <p>
+              The lyrics analyer API allows for lexiconic analysis of provided lyrics. This documentation should 
+              allow the user to understand the functionality that it provides. All functions are built upon the 
+              <a href="https://www.nltk.org/">Natural Language Toolkit</a>, which provides functions for Natural Language processing.<br>
+              All API data must be requested using GET requests. Currently, only English lyrics are supported.
+        </p>
+    </div>
+    <div>
+        <h2>Tokenization</h2>
+        <p>
+          Tokenization allows the user to turn an input text into separate "tokens". In this case, a list of these 
+          tokes will be returned to the user. In the current implementation, two kinds of tokenization are supported:
+        </p>
+        <ul>
+          <li>
+              <a href="../tokens/base/I am a monkey sitting in a tree">../tokens/base/text</a>
+          </li>
+          <li>
+              <a href="../tokens/noStopwords/I am a monkey sitting in a tree">../tokens/noStopwords/text</a>
+          </li>
+        </ul>
+        <p>
+          The <b>base</b> version simply turns every word into a token, while the <b>noStopwords</b> 
+          version removes all stop words from the text (a list of stop words can be found at 
+          <a href="https://www.nltk.org/nltk_data/">this</a> location).
+        </p>
+    </div>
+    <div>
+        <h2>Common words</h2>
+        <p>
+          Besides generating a list of tokens from a text, the API also supports a search for the most 
+          common words in a text. Four different requests are possible:
+        </p>
+        <ul>
+          <li><a href="../mostCommon/base/I am a monkey sitting in a tree. I very much like coconuts and bananas!/5">../mostCommon/base/text/number</a></li>
+          <li><a href="../mostCommon/base/I am a monkey sitting in a tree. I very much like coconuts and bananas!">../mostCommon/base/text</a></li>
+          <li><a href="../mostCommon/filtered/I am a monkey sitting in a tree. I very much like coconuts and bananas!/5">../mostCommon/filtered/text/number</a></li>
+          <li><a href="../mostCommon/filtered/I am a monkey sitting in a tree. I very much like coconuts and bananas!">../mostCommon/filtered/text</a></li>
+        </ul>
+        <p>
+          Besides a mandatory <b>text</b>, and optional parameter that can be added is the <b>number</b> of words that needs to be included.
+          If no number is included, a default number of 10 is used instead.<br>
+          While the <b>base</b> version simply uses all words in the text (very much like the base tokenizer includes all words), 
+          the <b>filtered</b> variant first removes stopwords and <a href="https://www.nltk.org/nltk_data/">stems</a> all words.
+        </p>
+    </div>
+    <div>
+        <h2>Text sentiment</h2>
+        <p>
+            It is possible to analyze a text to try and detect a sentiment in that text. More specifically, 
+            the <a href="http://comp.social.gatech.edu/papers/icwsm14.vader.hutto.pdf">VADER Sentiment Analysis model</a> is used to do this.
+            A get request providing a <b>text</b> at the following address will be analyzed:
+        </p>
+        <p>
+          <a href="../sentiment/vader/I am a monkey sitting in a tree">../sentiment/vader/text</a>
+        </p>
+        <p>
+          The postive (<b>pos</b>) and negative (<b>neg</b>) polarities can then be used to predict the sentiment of the text. Note that the 
+          analysis is lexicon-based, meaning that it will simply analyze the words used in the text. Unknown words increase the neutral 
+          (<b>neu</b>) score. This means the model is <b>not</b> a machine learning classification model.
+        </p>
+    </div>
+    <div>
+      <h2>Text analysis</h2>
+      <p>
+          If it is necessary to perform analysis in a single request, the following urls can be used:
+      </p>
+      <ul>
+        <li>
+            <a href="../analysis/I am a monkey sitting in a tree. I very much like coconuts and bananas!">../analysis/text</a>
+        </li>
+        <li>
+            <a href="../analysis/I am a monkey sitting in a tree. I very much like coconuts and bananas!/5">../analysis/text/number</a>
+        </li>
+      </ul>
+      <p>
+        This <b>analysis</b> function combines the outputs of the most common words and the VADER sentiment analysis. 
+        The <b>number</b> once again indicates the maximum amount of most commons words to return.
+      </p>
+  </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
