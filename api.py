@@ -100,6 +100,7 @@ api.add_resource(Documentation, '/documentation')
 
 
 if __name__ == '__main__':
+	#First, download the necessary resources
     nltk.download('vader_lexicon')
     nltk.download('popular')
     app.run(host='0.0.0.0', port=80)
