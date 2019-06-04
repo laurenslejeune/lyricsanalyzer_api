@@ -49,10 +49,7 @@ class LyricsAnalyzer():
 
 	
     def mostCommon(self, n):
-        """
-		Get the most common words in the text.
-		"""
-		return FreqDist(self.wordTokenize()).most_common(n))
+	    return FreqDist(self.wordTokenize()).most_common(n)
 
     def mostCommonFiltered(self, n):
         """
@@ -70,9 +67,6 @@ class LyricsAnalyzer():
         return FreqDist(wordsStemmed).most_common(n)
 
     def wordTokenizeWithoutStopwords(self):
-		"""
-		Get the tokenized text, but with stopwords removed.
-		"""
         tokens = self.wordTokenize()
         result = []
         stopWordsIterable = set(stopwords.words("english"))
@@ -82,22 +76,13 @@ class LyricsAnalyzer():
         return result
 
     def getSentiment(self):
-		"""
-		Get the sentiment of the text using the Vader model.
-		"""
         vader_analyzer = SentimentIntensityAnalyzer()
         return vader_analyzer.polarity_scores(self.lyrics)
 
     def removeHtmlBreaks(self):
-		"""
-		Remove HTML breaks from the text.
-		"""
         self.lyrics = self.lyrics.replace("<br>"," ")
     
     def getAnalysis(self,n):
-		"""
-		Get a complete analysis of the text, providing the most common words as well as the VADER sentiment.
-		"""
         mostCommon = self.mostCommon(n)
         polarity_scores = self.getSentiment()
         return mostCommon,polarity_scores
