@@ -52,7 +52,7 @@ class LyricsAnalyzer():
         """
 		Get the most common words in the text.
 		"""
-		return FreqDist(self.wordTokenize()).most_common(n)
+		return FreqDist(self.wordTokenize()).most_common(n))
 
     def mostCommonFiltered(self, n):
         """
